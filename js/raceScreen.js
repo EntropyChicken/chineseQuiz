@@ -32,7 +32,7 @@ export function drawRaceScreen(state) {
     textSize(140);
     textAlign(CENTER, CENTER);
     fill(0);
-    text(state.card[state.showIndex], 0, -90);
+    text(state.card[state.showCol], 0, -90);
 
     textSize(50);
     textAlign(LEFT, TOP);
@@ -41,14 +41,14 @@ export function drawRaceScreen(state) {
     text(showTxt, -120, 0);
 
     textAlign(CENTER, CENTER);
-    text(state.card[state.showIndex2], 0, 100);
+    text(state.card[state.showCol2], 0, 100);
     {
-        let ind = state.card[state.showIndex2].search(state.card[state.showIndex]);
+        let ind = state.card[state.showCol2].search(state.card[state.showCol]);
         if (ind !== -1) {
-            let leftWidth = textWidth(state.card[state.showIndex2].slice(0, ind));
-            let rightWidth = textWidth(state.card[state.showIndex2].slice(ind + state.card[state.showIndex].length));
+            let leftWidth = textWidth(state.card[state.showCol2].slice(0, ind));
+            let rightWidth = textWidth(state.card[state.showCol2].slice(ind + state.card[state.showCol].length));
             fill(255, 0, 255);
-            text(state.card[state.showIndex], (leftWidth - rightWidth) / 2, 100);
+            text(state.card[state.showCol], (leftWidth - rightWidth) / 2, 100);
         }
     }
 
@@ -57,7 +57,7 @@ export function drawRaceScreen(state) {
     state.cursorBlinkTimer++;
     if (state.cursorBlinkTimer >= state.cursorBlinkPeriod) state.cursorBlinkTimer = 0;
 
-    if (state.activeTextbox.txt === state.card[state.targetIndex]) {
+    if (state.activeTextbox.txt === state.card[state.targetCol]) {
         state.succeed();
     }
 
@@ -98,9 +98,9 @@ export function keyPressedRaceScreen(keyCode, key, state) {
             if (keyCode > 46 || keyCode === 32) {
                 state.activeTextbox.txt += key.toString();
                 state.cursorBlinkTimer = state.cursorBlinkPeriod / 4;
-                if (keyCode >= 48 && keyCode <= 52) {
-                    if (state.activeTextbox.txt === state.card[state.targetIndex]) state.succeed();
-                    else state.fail(state.card[state.showIndex]);
+                if (keyCode >= 48 && keyCode <= 52 && [...state.activeTextbox.txt].filter(c => "01234".includes(c)).length === state.card[state.showCol].length) {
+                    if (state.activeTextbox.txt === state.card[state.targetCol]) state.succeed();
+                    else state.fail(state.card[state.showCol]);
                 }
             }
             break;

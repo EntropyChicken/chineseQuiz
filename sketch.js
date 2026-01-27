@@ -5,13 +5,14 @@ import { drawRaceWinScreen, keyPressedRaceWinScreen } from "./js/raceWinScreen.j
 
 let state = {
     screen: "title",
-    studySetName: "frequent100",
-    studySet: [],
+    studySetNames: ["frequent100", "subjects"],
+    studySets: [], // preload from JSON
+	studySetId: 0,
     start: 0,
     end: 50,
-    showIndex: 0,
-    showIndex2: 1,
-    targetIndex: 2,
+    showCol: 0,
+    showCol2: 1,
+    targetCol: 2,
     wStudySet: [],
     card: [],
     inp: [],
@@ -25,23 +26,29 @@ let state = {
     time: 0,
     failCountMap: new Map(),
     raceWonTimer: 0,
-    answerMap: new Map(),
+    answerMaps: [], // many new Map()
     showGraph: false,
     dots: []
 };
 
 window.preload = function() {
-    loadJSON("studySets/" + state.studySetName + ".json", data => {
-        state.studySet = data;
-        for (const row of state.studySet) {
-            state.answerMap.set(row[state.showIndex], row[state.targetIndex]);
-        }
-    });
+	for(let i = 0; i<state.studySetNames.length; i++){
+		loadJSON("studySets/" + state.studySetNames[i] + ".json", data => {
+			state.studySets[i] = data;
+		});
+	}
 }
 
 window.setup = function() {
     createCanvas(windowWidth, windowHeight);
-    nextCard();
+    nextCard(); // loads from state.studySets[0] by default, overwritten by title screen choice
+	
+	for(let i = 0; i<state.studySetNames.length; i++){
+		state.answerMaps.push(new Map());
+		for (const row of state.studySets[i]) {
+			state.answerMaps[i].set(row[state.showCol], row[state.targetCol]);
+		}
+	}
 }
 
 window.draw = function() {
@@ -54,7 +61,7 @@ window.draw = function() {
 
 window.keyPressed = function() {
     if (state.screen === "title") {
-        state.screen = keyPressedTitleScreen(keyCode, key, state);
+        keyPressedTitleScreen(keyCode, key, state);
     } else if (state.screen === "race") {
         keyPressedRaceScreen(keyCode, key, state);
     } else if (state.screen === "raceWin") {
@@ -81,7 +88,7 @@ function nextCard() {
         state.wStudySet.splice(0, 1);
     }
     if (state.wStudySet.length === 0) {
-        state.wStudySet = shuffle(state.studySet.slice(state.start, state.end));
+        state.wStudySet = shuffle(state.studySets[state.studySetId].slice(state.start, state.end));
         if (state.wStudySet[0][0] === state.card[0]) {
             [state.wStudySet[0], state.wStudySet[1]] = [state.wStudySet[1], state.wStudySet[0]];
         }
