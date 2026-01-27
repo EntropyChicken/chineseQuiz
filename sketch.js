@@ -1,3 +1,4 @@
+let studySetName = "frequent100";
 let studySet;
 let start = 0,
   end = 50; // 0-50 fine
@@ -26,7 +27,7 @@ let showGraph = false;
 let dots = [];
 
 function preload() {
-	loadJSON("studySets/mainSet.json", data => { studySet = data; });
+	loadJSON("studySets/"+studySetName+".json", data => { studySet = data; });
 }
 
 function setup() {

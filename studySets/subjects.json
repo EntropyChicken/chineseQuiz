@@ -1,0 +1,19 @@
+[
+  ["科学", "我喜欢科学", "ke1xue2", "noun", "science"],
+  ["生物学", "我学生物学", "sheng1wu4xue2", "noun", "biology"],
+  ["化学", "我喜欢化学", "hua4xue2", "noun", "chemistry"],
+  ["物理学", "物理学很有趣", "wu4li3xue2", "noun", "physics"],
+  ["数学", "我在学数学", "shu4xue2", "noun", "mathematics"],
+  ["计算机科学", "计算机科学很重要", "ji4suan4ji1 ke1xue2", "noun", "computer science"],
+  ["工程学", "工程学很复杂", "gong1cheng2xue2", "noun", "engineering"],
+  ["游戏设计", "我学游戏设计", "you2xi4 she4ji4", "noun", "game design"],
+  ["统计学", "统计学很重要", "tong3ji4xue2", "noun", "statistics"],
+  ["经济学", "经济学很复杂", "jing1ji4xue2", "noun", "economics"],
+  ["环境科学", "环境科学实验", "huan2jing4 ke1xue2", "noun", "environmental science"],
+  ["人工智能", "人工智能很热门", "ren2gong1 zhi4neng4", "noun", "artificial intelligence"],
+  ["机器学习", "机器学习课程", "ji1qi4 xue2xi2", "noun", "machine learning"],
+  ["数据科学", "数据科学项目", "shu4ju4 ke1xue2", "noun", "data science"],
+  ["生物工程", "生物工程实验", "sheng1wu4 gong1cheng2", "noun", "bioengineering"],
+  ["生物医学工程", "我学生物医学工程", "sheng1wu4 yi1xue2 gong1cheng2", "noun", "biomedical engineering"],
+  ["生物信息学", "生物信息学课程", "sheng1wu4 xin4xi1xue2", "noun", "bioinformatics"]
+]
