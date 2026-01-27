@@ -11,7 +11,7 @@ export function drawRaceWinScreen(state) {
     textAlign(CENTER, CENTER);
     text("You won in " + state.time + " seconds", 0, -200);
 
-    let topFailed = getTopFailed(10);
+    let topFailed = state.getTopFailed(10);
     textSize(40);
     let y = -100;
     for (const [char, count] of topFailed) {
@@ -24,7 +24,7 @@ export function drawRaceWinScreen(state) {
     pop();
 }
 
-export function keyPressedRaceWinScreen(keyCode, state) {
+export function keyPressedRaceWinScreen(keyCode, key, state) {
     if (keyCode === 13) {
         state.screen = "race";
     }

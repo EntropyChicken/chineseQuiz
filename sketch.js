@@ -1,6 +1,7 @@
 import { drawTitleScreen, keyPressedTitleScreen } from "./js/titleScreen.js";
 import { drawRaceScreen, keyPressedRaceScreen } from "./js/raceScreen.js";
 import { drawRaceWinScreen, keyPressedRaceWinScreen } from "./js/raceWinScreen.js";
+// import { drawStudyScreen, keyPressedStudyScreen } from "./js/studyScreen.js";
 
 let state = {
     screen: "title",
@@ -47,6 +48,8 @@ window.draw = function() {
     if (state.screen === "title") drawTitleScreen(state);
     else if (state.screen === "race") drawRaceScreen(state);
     else if (state.screen === "raceWin") drawRaceWinScreen(state);
+    else if (state.screen === "study") drawRaceScreen(state);
+    // else if (state.screen === "study") drawStudyScreen(state);
 }
 
 window.keyPressed = function() {
@@ -55,7 +58,10 @@ window.keyPressed = function() {
     } else if (state.screen === "race") {
         keyPressedRaceScreen(keyCode, key, state);
     } else if (state.screen === "raceWin") {
-        keyPressedRaceWinScreen(keyCode, state);
+        keyPressedRaceWinScreen(keyCode, key, state);
+    } else if (state.screen === "study") {
+        keyPressedRaceScreen(keyCode, key, state);
+        // keyPressedStudyScreen(keyCode, key, state);
     }
 }
 
@@ -63,7 +69,13 @@ window.keyReleased = function() {
     state.inp[keyCode] = false;
 }
 
-// ----------------- Shared functions -----------------
+
+
+
+
+
+// shared functions
+
 function nextCard() {
     if (state.wStudySet.length > 0) {
         state.wStudySet.splice(0, 1);
@@ -79,7 +91,7 @@ function nextCard() {
 function succeed() {
     state.successes++;
     state.succeedTimer = 28;
-    if (state.wStudySet.length === 1) {
+    if (state.screen === "race" && state.wStudySet.length === 1) {
         state.screen = "raceWin";
     } else {
         state.dots.push({
@@ -105,3 +117,4 @@ function getTopFailed(n = 10) {
 state.succeed = succeed;
 state.fail = fail;
 state.nextCard = nextCard;
+state.getTopFailed = getTopFailed;

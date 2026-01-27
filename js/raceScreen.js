@@ -1,10 +1,9 @@
 export function drawRaceScreen(state) {
     background(255);
 
-    let maxy = 1;
-    for (let d of state.dots) maxy = Math.max(maxy, d.y);
-
     if (state.showGraph) {
+        let maxy = 1;
+        for (let d of state.dots) maxy = Math.max(maxy, d.y);
         fill(222, 222, 255);
         beginShape();
         vertex(0, height);
@@ -69,8 +68,10 @@ export function drawRaceScreen(state) {
     text(state.successes + " / " + (state.end - state.start), width - 50, 40);
     fill(220, 0, 0);
     text(state.fails, width - 50, 80);
-    fill(0);
-    text(state.time, width - 50, 120);
+    if(state.screen === "race"){
+        fill(0);
+        text(state.time, width - 50, 120);
+    }
 }
 
 export function keyPressedRaceScreen(keyCode, key, state) {
