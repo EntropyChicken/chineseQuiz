@@ -105,6 +105,11 @@ export function keyPressedRaceScreen(keyCode, key, state) {
                     else state.fail(state.card[state.showCol]);
                 }
             }
+            if (key.toString() === "?") {
+                state.fail(state.card[state.showCol]);
+                state.activeTextbox.txt = "";
+                state.nextCard();
+            }
             break;
     }
 }
