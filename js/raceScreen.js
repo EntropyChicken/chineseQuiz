@@ -97,7 +97,7 @@ export function keyPressedRaceScreen(keyCode, key, state) {
             }
             break;
         default:
-            if (keyCode > 46 || keyCode === 32) {
+            if ((keyCode > 46 || keyCode === 32) && key.toString() !== "Meta") {
                 state.activeTextbox.txt += key.toString();
                 state.cursorBlinkTimer = state.cursorBlinkPeriod / 4;
                 if (keyCode >= 48 && keyCode <= 52 && [...state.activeTextbox.txt].filter(c => "01234".includes(c)).length === state.card[state.showCol].length) {

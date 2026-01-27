@@ -18,15 +18,23 @@ export function drawTitleScreen(state) {
         fill(255);
         text("("+(i+1)+") "+options[i], width*0.6, 220 + i * 80);
     }
+    textAlign(RIGHT, TOP);
+    text("1-"+state.end,width-50, 50);
 }
 
 export function keyPressedTitleScreen(keyCode, key, state) {
     if(keyCode>=65&&keyCode<=90&&keyCode-65<state.studySetNames.length){
         state.studySetId = keyCode-65;
-        state.wStudySet = [];
-        state.nextCard();
+    }
+    if(keyCode===38){
+        state.end+=10;
+    }
+    else if(keyCode===40){
+        state.end-=10;
     }
     if(keyCode>48&&keyCode<=48+options.length){
+        state.wStudySet = []; // reload set when transition out of screen
+        state.nextCard();
         state.screen = options[keyCode-49].toLowerCase();
     }
 }
