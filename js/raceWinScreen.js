@@ -16,7 +16,7 @@ export function drawRaceWinScreen(state) {
     let y = -100;
     for (const [char, count] of topFailed) {
         text(char, -180, y);
-        text(state.answerMap.get(char), 0, y);
+        text(state.answerMaps[state.studySetId].get(char), 0, y);
         text((count + 1) + " tries", 180, y);
         y += 45;
     }

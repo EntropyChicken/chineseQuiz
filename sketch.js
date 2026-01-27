@@ -102,7 +102,7 @@ function succeed() {
         state.screen = "raceWin";
     } else {
         state.dots.push({
-            x: state.successes / (state.end - state.start),
+            x: state.successes / min(state.end-state.start,state.studySets[state.studySetId].length),
             y: state.time
         });
         nextCard();

@@ -38,7 +38,7 @@ export function drawRaceScreen(state) {
     textAlign(LEFT, TOP);
     let showTxt = state.activeTextbox.txt;
     if (state.cursorBlinkTimer < state.cursorBlinkPeriod / 2) showTxt += "︳";
-    text(showTxt, -120, 0);
+    text(showTxt, -150, 0);
 
     if(state.screen === "study"){
         textAlign(CENTER, CENTER);
@@ -64,14 +64,16 @@ export function drawRaceScreen(state) {
     state.time = round(millis() / 1000);
     textAlign(RIGHT, TOP);
     textSize(40);
-    fill(0, 150, 0);
-    text(state.successes + " / " + (state.end - state.start), width - 50, 40);
-    fill(220, 0, 0);
-    text(state.fails, width - 50, 80);
+    let successesText = ""+state.successes;
     if(state.screen === "race"){
         fill(0);
         text(state.time, width - 50, 120);
+        successesText += " / " + min(state.end-state.start,state.studySets[state.studySetId].length);
     }
+    fill(0, 150, 0);
+    text(successesText, width - 50, 40);
+    fill(220, 0, 0);
+    text(state.fails, width - 50, 80);
 }
 
 export function keyPressedRaceScreen(keyCode, key, state) {
