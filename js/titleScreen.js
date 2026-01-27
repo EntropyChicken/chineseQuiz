@@ -21,7 +21,7 @@ export function drawTitleScreen(state) {
 }
 
 export function keyPressedTitleScreen(keyCode, key, state) {
-    if(keyCode>=65&&keyCode<=90){
+    if(keyCode>=65&&keyCode<=90&&keyCode-65<state.studySetNames.length){
         state.studySetId = keyCode-65;
         state.wStudySet = [];
         state.nextCard();
