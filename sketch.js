@@ -5,7 +5,7 @@ import { drawRaceWinScreen, keyPressedRaceWinScreen } from "./js/raceWinScreen.j
 
 let state = {
     screen: "title",
-    studySetNames: ["frequent100", "subjects"],
+    studySetNames: ["frequent100", "subjects", "maliping"],
     studySets: [], // preload from JSON
 	studySetId: 0,
     start: 0,

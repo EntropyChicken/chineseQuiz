@@ -40,9 +40,9 @@ export function drawRaceScreen(state) {
     if (state.cursorBlinkTimer < state.cursorBlinkPeriod / 2) showTxt += "︳";
     text(showTxt, -120, 0);
 
-    textAlign(CENTER, CENTER);
-    text(state.card[state.showCol2], 0, 100);
-    {
+    if(state.screen === "study"){
+        textAlign(CENTER, CENTER);
+        text(state.card[state.showCol2], 0, 100);
         let ind = state.card[state.showCol2].search(state.card[state.showCol]);
         if (ind !== -1) {
             let leftWidth = textWidth(state.card[state.showCol2].slice(0, ind));
