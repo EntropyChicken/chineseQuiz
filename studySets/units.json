@@ -1,0 +1,23 @@
+[
+	["米", "一米长", "mi3", "noun", "meter"],
+	["厘米", "十厘米长", "li2mi3", "noun", "centimeter"],
+	["平方", "一平方米", "ping2fang1", "noun", "square meter"],
+	["立方", "一立方米", "li4fang1", "noun", "cubic meter"],
+	["克", "五克盐", "ke4", "noun", "gram"],
+	["毫克", "一毫克药", "hao2ke4", "noun", "milligram"],
+	["公斤", "一公斤米", "gong1jin1", "noun", "kilogram"],
+    ["斤", "一斤苹果", "jin1", "noun", "half kilogram"],
+	["升", "一升水", "sheng1", "noun", "liter"],
+	["毫升", "五毫升水", "hao2sheng1", "noun", "milliliter"],
+	["摄氏度", "二十摄氏度", "she4shi4du4", "noun", "celsius"],
+	["秒", "三十秒", "miao3", "noun", "second"],
+	["分钟", "五分钟", "fen1zhong1", "noun", "minute"],
+	["刻", "一刻钟", "ke4", "noun", "quarter hour"],
+	["小时", "两个小时", "xiao3shi2", "noun", "hour"],
+	["天", "一天", "tian1", "noun", "day"],
+	["星期", "这个星期", "xing1qi1", "noun", "week"],
+	["礼拜", "下个礼拜", "li3bai4", "noun", "week"],
+	["周", "这周很忙", "zhou1", "noun", "week"],
+	["月", "一个月", "yue4", "noun", "month"],
+	["年", "今年", "nian2", "noun", "year"]
+]
