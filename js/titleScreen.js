@@ -27,10 +27,20 @@ export function keyPressedTitleScreen(keyCode, key, state) {
         state.studySetId = keyCode-65;
     }
     if(keyCode===38){
-        state.end+=10;
+        if(inp[16]){
+            state.start+=10;
+        }
+        else{
+            state.end+=10;
+        }
     }
     else if(keyCode===40){
-        state.end-=10;
+        if(inp[16]){
+            state.start-=10;
+        }
+        else{
+            state.end-=10;
+        }
     }
     if(keyCode>48&&keyCode<=48+options.length){
         state.wStudySet = []; // reload set when transition out of screen
