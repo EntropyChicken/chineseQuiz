@@ -23,11 +23,13 @@ export function drawTitleScreen(state) {
 }
 
 export function keyPressedTitleScreen(keyCode, key, state) {
+    state.inp[keyCode] = true;
+    
     if(keyCode>=65&&keyCode<=90&&keyCode-65<state.studySetNames.length){
         state.studySetId = keyCode-65;
     }
     if(keyCode===38){
-        if(inp[16]){
+        if(state.inp[16]){
             state.start+=10;
         }
         else{
@@ -35,7 +37,7 @@ export function keyPressedTitleScreen(keyCode, key, state) {
         }
     }
     else if(keyCode===40){
-        if(inp[16]){
+        if(state.inp[16]){
             state.start-=10;
         }
         else{
