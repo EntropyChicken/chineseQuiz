@@ -19,18 +19,30 @@ export function drawTitleScreen(state) {
         text("("+(i+1)+") "+options[i], width*0.6, 220 + i * 80);
     }
     textAlign(RIGHT, TOP);
-    text("1-"+state.end,width-50, 50);
+    text((1+state.start)+"-"+state.end,width-50, 50);
 }
 
 export function keyPressedTitleScreen(keyCode, key, state) {
+    state.inp[keyCode] = true;
+    
     if(keyCode>=65&&keyCode<=90&&keyCode-65<state.studySetNames.length){
         state.studySetId = keyCode-65;
     }
     if(keyCode===38){
-        state.end+=10;
+        if(state.inp[16]){
+            state.start = min(state.start+10,state.end);
+        }
+        else{
+            state.end = state.end+10;
+        }
     }
     else if(keyCode===40){
-        state.end-=10;
+        if(state.inp[16]){
+            state.start = max(0,state.start-10);
+        }
+        else{
+            state.end = max(0,state.end-10);
+        }
     }
     if(keyCode>48&&keyCode<=48+options.length){
         state.wStudySet = []; // reload set when transition out of screen

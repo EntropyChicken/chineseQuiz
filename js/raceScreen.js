@@ -106,6 +106,8 @@ export function keyPressedRaceScreen(keyCode, key, state) {
                 }
             }
             if (key.toString() === "?") {
+                let clipboardText = "Define "+state.card[state.showCol]+" \""+state.card[state.targetCol]+"\" and how it is used in \""+state.card[state.showCol2]+"\"";
+                navigator.clipboard.writeText(clipboardText) .then(() => { console.log("Copied!"); }) .catch(err => { console.error("Clipboard error:", err); });
                 state.fail(state.card[state.showCol]);
                 state.activeTextbox.txt = "";
                 state.nextCard();
