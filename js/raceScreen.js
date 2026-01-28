@@ -106,6 +106,7 @@ export function keyPressedRaceScreen(keyCode, key, state) {
                 }
             }
             if (key.toString() === "?") {
+                navigator.clipboard.writeText(state.card[state.showCol]) .then(() => { console.log("Copied!"); }) .catch(err => { console.error("Clipboard error:", err); });
                 state.fail(state.card[state.showCol]);
                 state.activeTextbox.txt = "";
                 state.nextCard();
