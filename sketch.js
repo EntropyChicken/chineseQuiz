@@ -91,7 +91,10 @@ window.keyReleased = function() {
 
 // shared functions
 
-function nextCard() {
+function nextCard(forceReset = false) {
+    if (forceReset) {
+        state.wStudySet = [];
+    }
     if (state.wStudySet.length > 0) {
         state.wStudySet.splice(0, 1);
     }
