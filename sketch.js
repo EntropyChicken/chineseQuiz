@@ -8,8 +8,8 @@ let state = {
     studySetNames: ["frequent100", "maliping", "subjects", "classifiers", "units"],
     studySets: [], // preload from JSON
 	studySetId: 0,
-    start: 0,
-    end: 50,
+    start: 50,
+    end: 80,
     showCol: 0,
     showCol2: 1,
     targetCol: 2,
