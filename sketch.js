@@ -1,7 +1,8 @@
 import { drawTitleScreen, keyPressedTitleScreen } from "./js/titleScreen.js";
-import { drawRaceScreen, keyPressedRaceScreen } from "./js/raceScreen.js";
-import { drawRaceWinScreen, keyPressedRaceWinScreen } from "./js/raceWinScreen.js";
-// import { drawStudyScreen, keyPressedStudyScreen } from "./js/studyScreen.js";
+import { drawStudyScreen, keyPressedStudyScreen } from "./js/studyScreen.js";
+import { drawRaceEndScreen, keyPressedRaceEndScreen } from "./js/raceEndScreen.js";
+
+window.stateFunctions = window.stateFunctions || {};
 
 let state = {
     screen: "title",
@@ -24,11 +25,13 @@ let state = {
     successes: 0,
     fails: 0,
     time: 0,
+    lastMillis: -1,
     failCountMap: new Map(),
     raceWonTimer: 0,
     answerMaps: [], // many new Map()
     showGraph: false,
-    dots: []
+    dots: [],
+    originalEnterState: {}  // set to state after choosing what mode to play. remake this in loadOriginalEnterState
 };
 
 window.preload = function() {
@@ -53,22 +56,23 @@ window.setup = function() {
 
 window.draw = function() {
     if (state.screen === "title") drawTitleScreen(state);
-    else if (state.screen === "race") drawRaceScreen(state);
-    else if (state.screen === "raceWin") drawRaceWinScreen(state);
-    else if (state.screen === "study") drawRaceScreen(state);
-    // else if (state.screen === "study") drawStudyScreen(state);
+    else if (state.screen === "race") drawStudyScreen(state);
+    else if (state.screen === "raceEnd") drawRaceEndScreen(state);
+    else if (state.screen === "study") drawStudyScreen(state);
+    else if (state.screen === "streak") drawStudyScreen(state);
 }
 
 window.keyPressed = function() {
     if (state.screen === "title") {
         keyPressedTitleScreen(keyCode, key, state);
     } else if (state.screen === "race") {
-        keyPressedRaceScreen(keyCode, key, state);
-    } else if (state.screen === "raceWin") {
-        keyPressedRaceWinScreen(keyCode, key, state);
+        keyPressedStudyScreen(keyCode, key, state);
+    } else if (state.screen === "raceEnd") {
+        keyPressedRaceEndScreen(keyCode, key, state);
     } else if (state.screen === "study") {
-        keyPressedRaceScreen(keyCode, key, state);
-        // keyPressedStudyScreen(keyCode, key, state);
+        keyPressedStudyScreen(keyCode, key, state);
+    } else if (state.screen === "streak") {
+        keyPressedStudyScreen(keyCode, key, state);
     }
 }
 
@@ -99,7 +103,7 @@ function succeed() {
     state.successes++;
     state.succeedTimer = 28;
     if (state.screen === "race" && state.wStudySet.length === 1) {
-        state.screen = "raceWin";
+        state.screen = "raceEnd";
     } else {
         state.dots.push({
             x: state.successes / min(state.end-state.start,state.studySets[state.studySetId].length),
@@ -113,6 +117,9 @@ function succeed() {
 function fail(char) {
     state.fails++;
     state.failTimer = 32;
+    if (state.screen === "streak") {
+        state.screen = "streakEnd";
+    }
     if (!state.failCountMap.has(char)) state.failCountMap.set(char, 0);
     state.failCountMap.set(char, state.failCountMap.get(char) + 1);
 }
@@ -121,7 +128,17 @@ function getTopFailed(n = 10) {
     return [...state.failCountMap.entries()].sort((a, b) => b[1] - a[1]).slice(0, n);
 }
 
-state.succeed = succeed;
-state.fail = fail;
-state.nextCard = nextCard;
-state.getTopFailed = getTopFailed;
+function setOriginalEnterState() {
+    state.originalEnterState = structuredClone(state);
+}
+function loadOriginalEnterState() {
+    state = structuredClone(state.originalEnterState);
+    state.originalEnterState = structuredClone(state);
+}
+
+stateFunctions.succeed = succeed;
+stateFunctions.fail = fail;
+stateFunctions.nextCard = nextCard;
+stateFunctions.getTopFailed = getTopFailed;
+stateFunctions.setOriginalEnterState = setOriginalEnterState;
+stateFunctions.loadOriginalEnterState = loadOriginalEnterState;

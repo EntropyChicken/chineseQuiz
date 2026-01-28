@@ -1,4 +1,4 @@
-export function drawRaceWinScreen(state) {
+export function drawRaceEndScreen(state) {
     state.raceWonTimer++;
     push();
     translate(width / 2, height / 2);
@@ -9,9 +9,9 @@ export function drawRaceWinScreen(state) {
     fill(255);
     textSize(80);
     textAlign(CENTER, CENTER);
-    text("You won in " + state.time + " seconds", 0, -200);
+    text("You won in " + round(state.time*100)/100 + " seconds", 0, -200);
 
-    let topFailed = state.getTopFailed(10);
+    let topFailed = stateFunctions.getTopFailed(10);
     textSize(40);
     let y = -100;
     for (const [char, count] of topFailed) {
@@ -24,8 +24,8 @@ export function drawRaceWinScreen(state) {
     pop();
 }
 
-export function keyPressedRaceWinScreen(keyCode, key, state) {
+export function keyPressedRaceEndScreen(keyCode, key, state) {
     if (keyCode === 13) {
-        state.screen = "race";
+        stateFunctions.loadOriginalEnterState();
     }
 }

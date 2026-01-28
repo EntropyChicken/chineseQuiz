@@ -1,4 +1,4 @@
-let options = ["study", "race"];
+let options = ["study", "race", "streak"];
 
 export function drawTitleScreen(state) {
     background(180, 180, 255);
@@ -43,12 +43,13 @@ export function keyPressedTitleScreen(keyCode, key, state) {
             state.start = max(0,state.start-10);
         }
         else{
-            state.end = max(0,state.end-10);
+            state.end = max(state.start+5,state.end-10);
         }
     }
     if(keyCode>48&&keyCode<=48+options.length){
         state.wStudySet = []; // reload set when transition out of screen
-        state.nextCard();
+        stateFunctions.nextCard();
         state.screen = options[keyCode-49].toLowerCase();
+        stateFunctions.setOriginalEnterState();
     }
 }

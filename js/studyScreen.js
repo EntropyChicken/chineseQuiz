@@ -1,4 +1,4 @@
-export function drawRaceScreen(state) {
+export function drawStudyScreen(state) {
     background(255);
 
     if (state.showGraph) {
@@ -55,19 +55,22 @@ export function drawRaceScreen(state) {
     pop();
 
     state.cursorBlinkTimer++;
-    if (state.cursorBlinkTimer >= state.cursorBlinkPeriod) state.cursorBlinkTimer = 0;
-
-    if (state.activeTextbox.txt === state.card[state.targetCol]) {
-        state.succeed();
+    if (state.cursorBlinkTimer >= state.cursorBlinkPeriod) {
+        state.cursorBlinkTimer = 0;
     }
-
-    state.time = round(millis() / 1000);
+    if (state.activeTextbox.txt === state.card[state.targetCol]) {
+        stateFunctions.succeed();
+    }
+    if (state.lastMillis !==-1 ) {
+        state.time += (millis()-state.lastMillis) / 1000;
+    }
+    state.lastMillis = millis(); 
     textAlign(RIGHT, TOP);
     textSize(40);
     let successesText = ""+state.successes;
     if(state.screen === "race"){
         fill(0);
-        text(state.time, width - 50, 120);
+        text(round(state.time), width - 50, 120);
         successesText += " / " + min(state.end-state.start,state.studySets[state.studySetId].length);
     }
     fill(0, 150, 0);
@@ -76,7 +79,7 @@ export function drawRaceScreen(state) {
     text(state.fails, width - 50, 80);
 }
 
-export function keyPressedRaceScreen(keyCode, key, state) {
+export function keyPressedStudyScreen(keyCode, key, state) {
     state.inp[keyCode] = true;
 
     switch (keyCode) {
@@ -101,16 +104,16 @@ export function keyPressedRaceScreen(keyCode, key, state) {
                 state.activeTextbox.txt += key.toString();
                 state.cursorBlinkTimer = state.cursorBlinkPeriod / 4;
                 if (keyCode >= 48 && keyCode <= 52 && [...state.activeTextbox.txt].filter(c => "01234".includes(c)).length === state.card[state.showCol].length) {
-                    if (state.activeTextbox.txt === state.card[state.targetCol]) state.succeed();
-                    else state.fail(state.card[state.showCol]);
+                    if (state.activeTextbox.txt === state.card[state.targetCol]) stateFunctions.succeed();
+                    else stateFunctions.fail(state.card[state.showCol]);
                 }
             }
             if (key.toString() === "?") {
-                let clipboardText = "Define "+state.card[state.showCol]+" \""+state.card[state.targetCol]+"\" and how it is used in \""+state.card[state.showCol2]+"\"";
-                navigator.clipboard.writeText(clipboardText) .then(() => { console.log("Copied!"); }) .catch(err => { console.error("Clipboard error:", err); });
-                state.fail(state.card[state.showCol]);
+                let clipboardText = "Define "+state.card[state.showCol]+" "+state.card[state.targetCol]+" and how it is used in "+state.card[state.showCol2];
+                navigator.clipboard.writeText(clipboardText) .catch(err => { console.error("Clipboard error:", err); });
+                stateFunctions.fail(state.card[state.showCol]);
                 state.activeTextbox.txt = "";
-                state.nextCard();
+                stateFunctions.nextCard();
             }
             break;
     }
