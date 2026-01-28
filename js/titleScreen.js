@@ -27,13 +27,15 @@ export function keyPressedTitleScreen(keyCode, key, state) {
     
     if(keyCode>=65&&keyCode<=90&&keyCode-65<state.studySetNames.length){
         state.studySetId = keyCode-65;
+        state.start = 0;
+        state.end = state.studySets[state.studySetId].length;
     }
     if(keyCode===38){
         if(state.inp[16]){
-            state.start = min(state.start+10,state.end);
+            state.start = min(state.start+10,state.end-5);
         }
         else{
-            state.end = state.end+10;
+            state.end = min(state.end+10,state.studySets[state.studySetId].length);
         }
     }
     else if(keyCode===40){
