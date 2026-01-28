@@ -40,7 +40,7 @@ export function drawStudyScreen(state) {
     if (state.cursorBlinkTimer < state.cursorBlinkPeriod / 2) showTxt += "︳";
     text(showTxt, -150, 0);
 
-    if(state.screen === "study"){
+    if(state.screen !== "race"){
         textAlign(CENTER, CENTER);
         text(state.card[state.showCol2], 0, 100);
         let ind = state.card[state.showCol2].search(state.card[state.showCol]);
@@ -75,8 +75,10 @@ export function drawStudyScreen(state) {
     }
     fill(0, 150, 0);
     text(successesText, width - 50, 40);
-    fill(220, 0, 0);
-    text(state.fails, width - 50, 80);
+    if(state.screen !== "streak"){
+        fill(220, 0, 0);
+        text(state.fails, width - 50, 80);
+    }
 }
 
 export function keyPressedStudyScreen(keyCode, key, state) {

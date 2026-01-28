@@ -1,6 +1,7 @@
 import { drawTitleScreen, keyPressedTitleScreen } from "./js/titleScreen.js";
 import { drawStudyScreen, keyPressedStudyScreen } from "./js/studyScreen.js";
 import { drawRaceEndScreen, keyPressedRaceEndScreen } from "./js/raceEndScreen.js";
+import { drawStreakEndScreen, keyPressedStreakEndScreen } from "./js/streakEndScreen.js";
 
 window.stateFunctions = window.stateFunctions || {};
 
@@ -60,6 +61,7 @@ window.draw = function() {
     else if (state.screen === "raceEnd") drawRaceEndScreen(state);
     else if (state.screen === "study") drawStudyScreen(state);
     else if (state.screen === "streak") drawStudyScreen(state);
+    else if (state.screen === "streakEnd") drawStreakEndScreen(state);
 }
 
 window.keyPressed = function() {
@@ -73,6 +75,8 @@ window.keyPressed = function() {
         keyPressedStudyScreen(keyCode, key, state);
     } else if (state.screen === "streak") {
         keyPressedStudyScreen(keyCode, key, state);
+    } else if (state.screen === "streakEnd") {
+        keyPressedStreakEndScreen(keyCode, key, state);
     }
 }
 
